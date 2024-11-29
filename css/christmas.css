@@ -1,0 +1,103 @@
+.christmas-button {
+    width: 40px;
+    height: 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: perspective(500px) rotateX(15deg);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    background: linear-gradient(45deg, #ff0000, #00ff00);
+}
+
+.christmas-button:hover {
+    transform: perspective(500px) rotateX(0);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}
+
+#christmas-snow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.christmas-mode {
+    background: linear-gradient(to bottom, #1a2a32, #2c3e50);
+}
+
+.christmas-mode .stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.christmas-mode .nav-item {
+    color: #ffffff;
+}
+
+.christmas-mode .nav-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.christmas-mode #logout-button {
+    background: rgba(255, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Add festive text */
+.christmas-mode::before {
+    content: '🎄 Merry Christmas! 🎄';
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ff0000;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    animation: bounce 2s infinite;
+}
+
+/* Add twinkling stars */
+.christmas-mode::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(white, rgba(255,255,255,0) 2px) 0 0 / 50px 50px,
+        radial-gradient(white, rgba(255,255,255,0) 1px) 25px 25px / 50px 50px;
+    animation: twinkle 1s infinite alternate;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.3;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+@keyframes twinkle {
+    from { opacity: 0.2; }
+    to { opacity: 0.4; }
+}
+
+/* Add border decorations */
+.christmas-mode .sidebar {
+    border-right: 3px dashed #ff0000;
+}
+
+.christmas-mode .nav-item {
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.christmas-mode .nav-item:hover {
+    background: rgba(255, 0, 0, 0.1);
+    border-color: #ff0000;
+}

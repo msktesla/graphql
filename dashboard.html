@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learning Dashboard - 01Founders</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/matrix.css">
+    <link rel="stylesheet" href="css/christmas.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <canvas id="matrix-rain" style="display: none; position: fixed; top: 0; left: 0; z-index: -1;"></canvas>
+    <canvas id="christmas-snow" style="display: none; position: fixed; top: 0; left: 0; z-index: -1;"></canvas>
+
+    <div class="dashboard">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="user-profile">
+                <div class="avatar"></div>
+                <h2 id="user-name">Loading...</h2>
+            </div>
+            <div class="nav-items">
+                <button class="nav-item active" data-view="overview">Overview</button>
+                <button class="nav-item" data-view="progress">Progress</button>
+                <button class="nav-item" data-view="skills">Skills</button>
+                <!-- <button class="nav-item" data-view="audits">Audits</button> -->
+            </div>
+            <div class="mode-toggle">
+                <p class="choice-text">This is your last chance. After this, there is no turning back.</p>
+                <div class="pills">
+                    <button id="blue-pill" class="pill-button blue" 
+                        title="Take the blue pill - The story ends, you wake up in your bed and believe whatever you want to believe"></button>
+                    <button id="red-pill" class="pill-button red" 
+                        title="Take the red pill - Stay in Wonderland, and I show you how deep the rabbit hole goes"></button>
+                    <button id="christmas-pill" class="christmas-button" 
+                        title="Enter a world where code falls like snowflakes and algorithms dance like sugar plum fairies"></button>
+                </div>
+            </div>
+            <button id="logout-button" title="Exit">
+                <i class="fas fa-power-off"></i>
+                <span>Exit System</span>
+            </button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="content">
+            <!-- Overview Panel -->
+            <div id="overview-panel" class="panel active">
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Total XP</h3>
+                            <div class="stat-value" id="total-xp">Loading...</div>
+                        </div>
+                    </div>
+
+                    <!-- Comment out Current Level stat card -->
+                    <!--
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Current Level</h3>
+                            <div class="stat-value" id="current-level">-</div>
+                        </div>
+                    </div>
+                    -->
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Projects Completed</h3>
+                            <div class="stat-value" id="projects-completed">Loading...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <canvas id="matrix-rain" style="display: none; position: fixed; top: 0; left: 0; z-index: -1;"></canvas>
+                <!-- Comment out Level Progress section -->
+                <!--
+                <div class="card" id="level-progress">
+                    <h3>Level Progress</h3>
+                </div>
+                -->
+                <div id="activity-heatmap">
+                    <h3>Recent Activity</h3>
+                </div>
+            </div>
+            <div id="error-container" style="display: none;"></div>
+
+            <!-- Progress Panel -->
+            <div id="progress-panel" class="panel">
+                <div class="progress-header">
+                    <h2><i class="fas fa-chart-line"></i> Learning Progress</h2>
+                    <div class="progress-stats">
+                        <span class="stat-item activity-count">Loading...</span>
+                        <span class="stat-item total-xp">Loading...</span>
+                        <span class="stat-item velocity-avg">Loading...</span>
+                    </div>
+                </div>
+
+                <div class="progress-content">
+                    <div class="chart-section">
+                        <h3><i class="fas fa-trophy"></i> XP Timeline</h3>
+                        <div id="xp-timeline" class="chart-container"></div>
+                    </div>
+
+                    <div class="chart-section">
+                        <h3><i class="fas fa-tachometer-alt"></i> Learning Velocity</h3>
+                        <div id="learning-velocity" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills Panel -->
+            <div id="skills-panel" class="panel">
+                <h2>Skills Distribution</h2>
+                <div class="graph-container">
+                    <div id="skills-radar"></div>
+                </div>
+                <!-- Comment out Skills Tree section -->
+                <!--
+                <div class="graph-container">
+                    <div class="graph-title">Skills Tree</div>
+                    <div id="skills-tree"></div>
+                </div>
+                -->
+            </div>
+
+            <!-- Audits Panel -->
+            <!-- Comment out entire Audits panel -->
+            <!--
+            <div class="panel" id="audits-panel">
+                <div class="audits-container">
+                    <div id="audit-ratio"></div>
+                    <div id="recent-audits"></div>
+                </div>
+            </div>
+            -->
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/services/baseAPI.js"></script>
+    <script src="js/services/api.js"></script>
+    <script src="js/services/auth.js"></script>
+    <script src="js/services/authAPI.js"></script>
+    <script src="js/queries.js"></script>
+    <script src="js/effects/matrix.js"></script>    <!-- Updated path -->
+    <script src="js/effects/christmas.js"></script> <!-- New effect -->
+    <script src="js/controllers/dashboard.js"></script>
+    <script>
+        async function initializeDashboard() {
+            try {
+                if (!AuthService.isAuthenticated()) {
+                    window.location.replace('./login.html');
+                    return;
+                }
+
+                const dashboard = new DashboardController();
+                await dashboard.initialize();
+            } catch (error) {
+                console.error('Dashboard initialization error:', error);
+                if (error.message.includes('token') || error.isJWTError) {
+                    AuthService.logout();
+                }
+            }
+        }
+
+        // Wait for all resources to load
+        window.addEventListener('load', initializeDashboard);
+    </script>
+</body>
+</html>

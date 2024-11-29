@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>01Founders Dashboard</title>
+    <script src="js/utils.js"></script>
+    <script src="js/services/baseAPI.js"></script>
+    <script src="js/services/auth.js"></script>
+    <script src="js/queries.js"></script>
+    <script>
+        // Wait for all scripts to load
+        window.addEventListener('load', () => {
+            const currentPath = window.location.pathname;
+            
+            // Only redirect from login page if already authenticated
+            if (currentPath.endsWith('login.html') && AuthService.isAuthenticated()) {
+                window.location.replace('./dashboard.html');
+            }
+            // Only redirect to login if not on login page and not authenticated
+            else if (!currentPath.endsWith('login.html') && !AuthService.isAuthenticated()) {
+                window.location.replace('./login.html');
+            }
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>

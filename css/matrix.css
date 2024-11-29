@@ -1,0 +1,75 @@
+.mode-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px;
+    margin-top: auto;
+}
+
+.pill-button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: perspective(500px) rotateX(15deg);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.pill-button:hover {
+    transform: perspective(500px) rotateX(0);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}
+
+.pill-button.red {
+    background: linear-gradient(45deg, #ff0000, #cc0000);
+}
+
+.pill-button.blue {
+    background: linear-gradient(45deg, #0066ff, #0044cc);
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.nav-items {
+    flex-grow: 1;
+}
+
+#logout-button {
+    margin: 20px;
+    margin-top: 10px;
+}
+
+.matrix-mode {
+    background: transparent !important;
+    color: #00ff00 !important;
+}
+
+.matrix-mode .stat-card {
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid #00ff00;
+}
+
+.matrix-mode .sidebar {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.matrix-mode .nav-item {
+    color: #00ff00;
+    border-color: #00ff00;
+}
+
+.matrix-mode .nav-item:hover {
+    background: rgba(0, 255, 0, 0.1);
+}
+
+.matrix-mode .nav-item.active {
+    background: rgba(0, 255, 0, 0.2);
+}

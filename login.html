@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - 01Founders</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="logo-container">
+                <img src="images/logos/01Founders.png" alt="01 Founders Logo" class="logo">
+                <h1>Welcome Back</h1>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email">Email or Username</label>
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="email" required placeholder="Enter your email or username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" required placeholder="Enter your password">
+                </div>
+                <div class="error-message" id="error-message"></div>
+                <button type="submit">
+                    <span>Login to Dashboard</span>
+                </button>
+            </form>
+            <div class="login-footer">
+                Powered by 01 Founders Learning Platform
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/services/baseAPI.js"></script>
+    <script src="js/services/authAPI.js"></script>
+    <script src="js/services/auth.js"></script>
+    <script src="js/queries.js"></script>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const errorMessage = document.getElementById('error-message');
+            const submitButton = e.target.querySelector('button[type="submit"]');
+            errorMessage.style.display = 'none';
+
+            try {
+                submitButton.disabled = true;
+                const originalButtonText = submitButton.innerHTML;
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+                
+                const identifier = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                if (!identifier || !password) {
+                    throw new Error('Please fill in all fields');
+                }
+
+                const user = await AuthService.login({ email: identifier, password });
+                
+                if (!user) {
+                    throw new Error('No user data received after login');
+                }
+
+                window.location.replace('./dashboard.html');
+            } catch (error) {
+                console.error('Login form error:', error);
+                errorMessage.textContent = error.message || 'Login failed. Please try again.';
+                errorMessage.style.display = 'block';
+            } finally {
+                submitButton.disabled = false;
+                submitButton.innerHTML = '<span>Login to Dashboard</span>';
+            }
+        });
+    </script>
+</body>
+</html>
