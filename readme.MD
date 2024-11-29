@@ -87,7 +87,7 @@ The Matrix theme wasn't in the project requirements, but we couldn't resist. Aft
 
 ## 👨‍💻 Created By
 
-Created with 💜 by [Mehmet Sait Koseoglu](https://learn.01founders.co/git/mkoseoglu/graphql) 
+Created with 💜 by [Mehmet Sait Koseoglu](https://https://github.com/msktesla/graphql) 
 A proud student at [01 Founders](https://01founders.co/)
 
 Feel free to explore the Matrix... I mean, the code! 🕶️
